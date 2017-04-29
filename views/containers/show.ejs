@@ -1,0 +1,46 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">Container Information</p>
+            <div class="list-group">
+                <li class="list-group-item active">Info 1</li>
+                <li class="list-group-item">Info 2</li>
+                <li class="list-group-item">Info 3</li>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="container">
+                
+                
+            
+                <div class="caption-full">
+                    <div class="caption"></div> 
+                    <h4 class="pull-right">Alt ID: <%= container.altID %></h4>
+                <h4>Box: <%= container.containerID %></h4>
+                
+                <p>Description: <%= container.description  %></p>
+                
+                    
+                    <p><h4><a>Location: <%= container.location %></a></h4></p>
+                    
+                    <p>
+                        <em>Submitted By <%= container.author.username %></em>
+                    </p>
+                    <% if(currentUser && container.author.id.equals(currentUser._id)){ %>
+                        <a class="btn btn-xs btn-warning" href="/containers/<%= container._id %>/edit">Edit</a>
+                        <form id="delete-form" action="/containers/<%= container._id %>?_method=DELETE" method="POST">   
+                            <button class="btn btn-xs btn-danger">Delete</button>
+                        
+                        </form>
+                    <% }%>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<% include ../partials/footer %>
+
+ 

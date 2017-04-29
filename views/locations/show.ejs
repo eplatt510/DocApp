@@ -1,0 +1,37 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">Location Information</p>
+            <div class="list-group">
+                <li class="list-group-item active">Info 1</li>
+                <li class="list-group-item">Info 2</li>
+                <li class="list-group-item">Info 3</li>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="container">
+                <div class="caption"><%= location.location %></div>
+                <div class="caption-full">
+                    
+                    <p><h4><a><%=location.quantity%></a></h4></p>
+                    
+                    <p>
+                        <em>Submitted By <%= location.author.username %></em>
+                    </p>
+                    <% if(currentUser && location.author.id.equals(currentUser._id)){ %>
+                        <a class="btn btn-xs btn-warning" href="/locations/<%= location._id %>/edit">Edit</a>
+                        <form id="delete-form" action="/locations/<%= location._id %>?_method=DELETE" method="POST">   
+                            <button class="btn btn-xs btn-danger">Delete</button>
+                        
+                        </form>
+                    <% }%>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>
+
+ 

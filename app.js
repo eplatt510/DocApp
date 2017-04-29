@@ -10,12 +10,14 @@ var express         = require("express"),
 //Schema models   
 var Customer        = require("./models/customer"),
     User            = require("./models/user"),
-    Container       = require("./models/container");
+    Container       = require("./models/container"),
+    Location        = require("./models/location");
 
 //Routes
 var indexRoutes         = require("./routes/index"),
     customerRoutes      = require("./routes/customers"),
-    containerRoutes     = require("./routes/containers");
+    containerRoutes     = require("./routes/containers"),
+    locationRoutes      = require("./routes/locations");
 
 app.use(flash());
 
@@ -50,6 +52,7 @@ app.use(methodOverride("_method"));
 app.use(indexRoutes);
 app.use(customerRoutes);
 app.use(containerRoutes);
+app.use(locationRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("The YelpCamp Server has Started...");

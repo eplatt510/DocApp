@@ -9,22 +9,22 @@
                 <a class="btn btn-primary btn-large" href="/customers/new">Add New Customer</a>
                 <a class="btn btn-primary btn-large" href="/customers/new">Workorders</a>
                 <a class="btn btn-primary btn-large" href="/containers">Containers</a>
-                <a class="btn btn-primary btn-large" href="/locations">Locations</a>
+                <a class="btn btn-primary btn-large" href="/locations/new">Add Location</a>
                 
              </p>
          </div>
      </header>
      
      <div class="row text-center" style="display:flex; flex-wrap: wrap;">
-        <% customers.forEach(function(customer){ %>
+        <% locations.forEach(function(location){ %>
             <div class="col-md-3 col-sm-6">
                 <div class="thumbnail">
-                   <!--<img src="<%= customer.customerName %>">-->
-                   <div class="caption">
-                       <h4><%= customer.companyName %></h4>
+                     <div class="caption">
+                       <h4><%= location.location %></h4>
+                       <p>quantity: <%= location.quantity %> </p>
                    </div>
                    <p>
-                       <a href="/customers/<%= customer._id %>" class="btn btn-primary">More Info</a>
+                       <a href="/locations/<%= location._id %>" class="btn btn-primary">More Info</a>
                    </p>
                 </div>
             </div>
