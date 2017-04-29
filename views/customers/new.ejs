@@ -1,0 +1,43 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center;">Create a New Customer</h1>
+        <div style="width: 30%; margin:30px auto;">
+            <form action="/customers" method="POST">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="companyName" placeholder="Company Name">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="contact" placeholder="Contact">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="streetAddress" placeholder="Street Address">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="city" placeholder="City">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="state" placeholder="State">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="zip" placeholder="Zip">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="phone" name="phone" placeholder="Phone">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="email" name="email" placeholder="email">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+                <a href="/customers">Go Back</a>
+        </div>
+        
+        
+    </div>
+</div>
+
+<% include ../partials/footer %>
