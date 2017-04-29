@@ -14,7 +14,8 @@ var Customer        = require("./models/customer"),
 
 //Routes
 var indexRoutes         = require("./routes/index"),
-    customerRoutes    = require("./routes/customers");
+    customerRoutes      = require("./routes/customers"),
+    containerRoutes     = require("./routes/containers");
 
 app.use(flash());
 
@@ -48,6 +49,7 @@ app.use(methodOverride("_method"));
 
 app.use(indexRoutes);
 app.use(customerRoutes);
+app.use(containerRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("The YelpCamp Server has Started...");

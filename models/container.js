@@ -11,7 +11,7 @@ var containerSchema = new mongoose.Schema({
         },
         username: String
     },
-    customer: {
+    companyName: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Customer"
