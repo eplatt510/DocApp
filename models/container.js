@@ -5,12 +5,9 @@ var containerSchema = new mongoose.Schema({
     containerID: String,
     altID: String,
     location: {
-        id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Location"
         },
-        username: String
-    },
     companyName: {
         id: {
             type: mongoose.Schema.Types.ObjectId,

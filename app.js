@@ -6,6 +6,7 @@ var express         = require("express"),
     passport        = require("passport"),
     LocalStrategy   = require("passport-local"),
     methodOverride  = require("method-override");
+   
  
 //Schema models   
 var Customer        = require("./models/customer"),
@@ -55,5 +56,5 @@ app.use(containerRoutes);
 app.use(locationRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function(){
-    console.log("The YelpCamp Server has Started...");
+    console.log("The DocStore Server has Started...");
 });

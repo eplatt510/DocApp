@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Location = require("../models/location");
+var Container = require("../models/container");
 var middleware = require("../middleware");
 
 //INDEX - show all locations
@@ -9,8 +10,8 @@ router.get("/locations", function(req, res){
         if(err){
             console.log(err);
     } else {
-          res.render("locations/index", {locations: allLocations});
-    }
+        res.render("locations/index", {locations: allLocations});
+        }
     });
 });
 
@@ -29,6 +30,7 @@ router.post("/locations", middleware.isLoggedIn, function(req, res){
             console.log(err);
         } else {
             console.log(newlyCreated);
+            console.log(newlyCreated.location);
             res.redirect("/locations");
         }
     });
@@ -45,11 +47,44 @@ router.get("/locations/:id", function(req, res){
         if(err){
             console.log(err);
         } else {
-            console.log(foundLocation);
-            res.render("locations/show", {location: foundLocation});
+            //console.log(foundLocation.containers);
+            foundLocation.containers.forEach(function(container){
+                Container.findById(foundLocation.containers).select("containerID companyName AltID").exec(function(err, foundContainer){
+                if(err){
+                    console.log(err);
+                } else {
+                    console.log(foundContainer);
+                    
+                }
+            });
+            //
+            res.render("locations/show", {location: foundLocation, container: foundContainer});
+            })
+            
         }
     });
 });
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// SHOW CONTAINER- shows more info about one container
+router.get("/containers/:id", function(req, res){
+    //find the container with provided ID
+    Container.findById(req.params.id).populate("containers").exec(function(err, foundContainer){
+        if(err){
+            console.log(err);
+        } else {
+           Location.findById(foundContainer.location).select("location quantity").exec(function(err, foundLocation){
+               if(err){
+                   console.log(err);
+               } else {
+                   res.render("containers/show", {container: foundContainer, location: foundLocation});
+               }
+           });
+        }
+    });
+});
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //EDIT CONTAINER ROUTE
 router.get("/locations/:id/edit", middleware.isLoggedIn, function(req, res){
@@ -81,7 +116,7 @@ router.delete("/locations/:id", middleware.isLoggedIn, function(req, res){
         } else {
             res.redirect("/locations");
         }
-    })
+    });
 });
 
 

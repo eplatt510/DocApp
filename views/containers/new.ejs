@@ -11,8 +11,16 @@
                 <div class="form-group">
                     <input class="form-control" type="text" name="altID" placeholder="Alternate Number">
                 </div>
+                
                 <div class="form-group">
-                    <input class="form-control" type="text" name="location" placeholder="Location">
+                    <select class="form-control" name="location">
+                    <!--<option></option>-->
+                    
+                     <% locations.forEach(function(location){ %>
+                    <option value="<%= location._id %>">  <%= location.location %></option>
+                    <%})%> 
+    
+                    </select>
                 </div>
                 <div class="form-group">
                     <input class="form-control" type="text" name="companyName" placeholder="Company Name">
@@ -21,7 +29,7 @@
                     <input class="form-control" type="text" name="destroyDate" placeholder="Destroy Date">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="textarea" name="description" placeholder="Description">
+                     <textarea class="form-control" rows="4" cols="50" name="description" placeholder="Description"></textarea>
                 </div>
                 <div class="form-group">
                     <input class="form-control" type="text" name="subContainer" placeholder="Sub-Container (filefolder, etc)">
@@ -32,9 +40,7 @@
             </form>
                 <a href="/containers">Go Back</a>
         </div>
-        
-        
-    </div>
+      </div>
 </div>
 
 <% include ../partials/footer %>

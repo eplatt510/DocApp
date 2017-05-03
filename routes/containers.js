@@ -1,16 +1,19 @@
 var express = require("express");
 var router = express.Router();
 var Container = require("../models/container");
+var Location = require("../models/location");
 var middleware = require("../middleware");
+var mongoose = require("mongoose");
 
-//INDEX - show all customers
+
+//INDEX - show all containers
 router.get("/containers", function(req, res){
    Container.find({}, function(err, allContainers){
         if(err){
             console.log(err);
-    } else {
-          res.render("containers/index", {containers: allContainers});
-    }
+    } else  {
+                res.render("containers/index", {containers: allContainers});
+            }
     });
 });
 
@@ -30,19 +33,38 @@ router.post("/containers", middleware.isLoggedIn, function(req, res){
         id: req.user._id,
         username: req.user.username
     };
+    location = mongoose.mongo.ObjectId(location);
+    
     var newContainer = {containerID: containerID, altID: altID, location: location, customer: customer, destroyDate: destroyDate, description: description, subContainer: subContainer, author: author};
     Container.create(newContainer, function(err, newlyCreated){
         if(err){
             console.log(err);
         } else {
-            console.log(newlyCreated);
+            Location.findById(location, function(err, foundLocation){
+                if(err){
+                    console.log(err);
+                } else {
+                    foundLocation.containers.push(newlyCreated._id);
+                    foundLocation.save();
+                    // console.log(newlyCreated._id);
+                    console.log(foundLocation.containers);
+                }
+            });
+            
             res.redirect("/containers");
         }
     });
 });
 
+// SHOW NEW CONTAINER FORM
 router.get("/containers/new", middleware.isLoggedIn, function(req, res){
-   res.render("containers/new"); 
+    Location.find({}, function(err, allLocations){
+        if(err){
+            console.log(err);
+        } else  {
+            res.render("containers/new", {locations: allLocations}); 
+        }
+    });
 });
 
 // SHOW CONTAINER- shows more info about one container
@@ -52,8 +74,13 @@ router.get("/containers/:id", function(req, res){
         if(err){
             console.log(err);
         } else {
-            console.log(foundContainer);
-            res.render("containers/show", {container: foundContainer});
+           Location.findById(foundContainer.location).select("location quantity").exec(function(err, foundLocation){
+               if(err){
+                   console.log(err);
+               } else {
+                   res.render("containers/show", {container: foundContainer, location: foundLocation});
+               }
+           });
         }
     });
 });
@@ -89,6 +116,15 @@ router.delete("/containers/:id", middleware.isLoggedIn, function(req, res){
         }
     })
 });
+
+function toObjectId(ids) {
+
+    if (ids.constructor === Array) {
+        return ids.map(mongoose.Types.ObjectId);
+    }
+
+    return mongoose.Types.ObjectId(ids);
+}
 
 
 module.exports = router;

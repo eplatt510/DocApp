@@ -9,22 +9,21 @@
                 <a class="btn btn-primary btn-large" href="/containers/new">Add New Container</a>
                 <a class="btn btn-primary btn-large" href="/containers/new">Workorders</a>
                 <a class="btn btn-primary btn-large" href="/containers/new">Containers</a>
-                <a class="btn btn-primary btn-large" href="/containers/new">Locations</a>
-                
+                <a class="btn btn-primary btn-large" href="/locations">Locations</a>
              </p>
          </div>
      </header>
      
      <div class="row text-center" style="display:flex; flex-wrap: wrap;">
         <% containers.forEach(function(container){ %>
-            <div class="col-md-3 col-sm-6">
+            <div class="col-md-2 col-sm-6">
                 <div class="thumbnail">
                    <!--<img src="<%= container.containerID %>">-->
                    <div class="caption">
                        <h4><%= container.containerID %></h4>
                    </div>
                    <p>
-                       <a href="/containers/<%= container._id %>" class="btn btn-primary">More Info</a>
+                       <a href="/containers/<%= container._id %>" class="btn btn-xs btn-primary">More Info</a>
                    </p>
                 </div>
             </div>

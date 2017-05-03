@@ -4,6 +4,13 @@ var mongoose = require("mongoose");
 var locationSchema = new mongoose.Schema({
     location: String,
     quantity: String,
+    quantityOpen: String,
+    containers: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Container"
+        }
+    ],
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
